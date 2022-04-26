@@ -2,10 +2,10 @@ trigger:
  - main
  
 pool:
-    name: default
+   name: default
    
 variables:
-    group: AWS_VARS
+  - group: AWS_VARS
 
 steps:
 
