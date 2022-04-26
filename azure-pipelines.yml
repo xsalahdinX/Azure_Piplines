@@ -2,7 +2,7 @@ trigger:
  - main
  
 pool:
-   name: Self-Hosted -Agent
+   name: Self-Hosted-Agent
    
 variables:
     group: AWS_VARS
@@ -10,14 +10,14 @@ variables:
 steps:
 
 - task: Goge
-  displayNane: "Go Get"
+  displayName: "Go Get"
   inputs:
     command: 'get'
     arguments: '-d'
     workingDirectory: '$(System.DefaultworkingDirectory)'
 
 - task: Goße
-  displayNane: "Go Build"
+  displayName: "Go Build"
   inputs:
     command: 'build'
     workingDirectory: '$(System.DefaultworkingDirectory)'
@@ -33,12 +33,12 @@ steps:
     artifactName: drop
     
 - task: Docken@2
-  displayName: Build an image
+  displayName: "Build an image"
   inputs:
     command: build 
     dockerfile: '$(System.DefaulworkingDirectory)/Dockerfile'
     bulldContext: '$(System.DefaultworkingDirectory)'
-    repository : $(AWS_ECR_MAGE_URI)
+    repository : '$(AWS_ECR_MAGE_URI)'
     
 - task: ECRPushImage@1
   inputs:
