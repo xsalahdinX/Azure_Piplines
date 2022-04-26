@@ -21,3 +21,22 @@ steps:
   inputs:
     command: 'build'
     workingDirectory: '$(System.DefaulworkingDirectory)'
+    
+- task: CopyFiles@2
+  inputs:
+    Sourcefolder: '$(System.DefaulworkingDirectory)'
+    Contents : 'deployment.yaml'
+    TargetFolder: '$(System.DefaulworkingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    artifactName: drop
+    
+- task: Docken@2
+  displayName: Build an image
+  inputs:
+    command: build 
+    dockerfile: '$(System.DefaulworkingDirectory)/Dockerfile'
+    bulldContext: '$(System.DefaulworkingDirectory)'
+    repository : $(AWS_ECR_MAGE_URI)
+
