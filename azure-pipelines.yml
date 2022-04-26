@@ -1,0 +1,23 @@
+trigger:
+ - main
+ 
+pool:
+   name: Self-Hosted -Agent
+   
+variables:
+    group: dev
+
+steps:
+
+- task: Goge
+  displayNane: "Go Get"
+  inputs:
+    command: 'get'
+    arguments: '-d'
+    workingDirectory: '$(System.DefaulworkingDirectory)'
+
+- task: Goße
+  displayNane: "Go Build"
+  inputs:
+    command: 'build'
+    workingDirectory: '$(System.DefaulworkingDirectory)'
