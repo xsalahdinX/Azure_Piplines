@@ -14,19 +14,19 @@ steps:
   inputs:
     command: 'get'
     arguments: '-d'
-    workingDirectory: '$(System.DefaulworkingDirectory)'
+    workingDirectory: '$(System.DefaultworkingDirectory)'
 
 - task: Goße
   displayNane: "Go Build"
   inputs:
     command: 'build'
-    workingDirectory: '$(System.DefaulworkingDirectory)'
+    workingDirectory: '$(System.DefaultworkingDirectory)'
     
 - task: CopyFiles@2
   inputs:
-    Sourcefolder: '$(System.DefaulworkingDirectory)'
+    Sourcefolder: '$(System.DefaultworkingDirectory)'
     Contents : 'deployment.yaml'
-    TargetFolder: '$(System.DefaulworkingDirectory)'
+    TargetFolder: '$(System.DefaultworkingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -37,6 +37,17 @@ steps:
   inputs:
     command: build 
     dockerfile: '$(System.DefaulworkingDirectory)/Dockerfile'
-    bulldContext: '$(System.DefaulworkingDirectory)'
+    bulldContext: '$(System.DefaultworkingDirectory)'
     repository : $(AWS_ECR_MAGE_URI)
+    
+- task: ECRPushImage@1
+  inputs:
+    awsCredentials: 'AWS_Service'
+    regionName: $(AWS_REGION) 
+    imageSource: 'imagename'
+    sourceImagelName: $(AWS_ECR_MAGE_URI)
+    sourceImageTag: $(Build.BuildId)
+    pushTag: $(Build.BuildId)
+    repositoryName: $(AWS_ECR_REPOSITORY_NAME)
+
 
