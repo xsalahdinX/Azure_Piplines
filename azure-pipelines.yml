@@ -9,14 +9,14 @@ variables:
 
 steps:
 
-- task: Goge
+- task: Go@0
   displayName: "Go Get"
   inputs:
     command: 'get'
     arguments: '-d'
     workingDirectory: '$(System.DefaultworkingDirectory)'
 
-- task: Goße
+- task: Go@0
   displayName: "Go Build"
   inputs:
     command: 'build'
